@@ -71,4 +71,13 @@ public class Restaurant {
     public String getLocation() {
         return location;
     }
+
+    public int calculateOrderValue(ArrayList<String> nameOfItemsInOrder) {
+        int orderValue = 0;
+        for(String itemName:nameOfItemsInOrder) {
+            Item item = findItemByName(itemName);
+            orderValue += item.getPrice();
+        }
+        return orderValue;
+    }
 }
