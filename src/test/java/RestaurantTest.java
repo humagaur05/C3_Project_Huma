@@ -5,6 +5,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,6 +21,7 @@ class RestaurantTest {
         restaurant = new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
         restaurant.addToMenu("Sweet corn soup",119);
         restaurant.addToMenu("Vegetable lasagne", 269);
+        restaurant.addToMenu("Tomato soup", 150);
     }
     //>>>>>>>>>>>>>>>>>>>>>>>>>OPEN/CLOSED<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     //-------FOR THE 2 TESTS BELOW, YOU MAY USE THE CONCEPT OF MOCKING, IF YOU RUN INTO ANY TROUBLE
@@ -84,4 +86,40 @@ class RestaurantTest {
                 ()->restaurant.removeFromMenu("French fries"));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>ORDER<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    @Test
+    public void calculate_order_value_when_zero_items_are_present_in_order() {
+        //Arrange
+        ArrayList<String> orderItems = new ArrayList<String>();
+        //Act
+        int valueOfOrder = restaurant.calculateOrderValue(orderItems);
+        //Assert
+        assertEquals(0, valueOfOrder);
+    }
+
+    @Test
+    public void calculate_order_value_when_single_item_is_present_in_order() {
+        //Arrange
+        ArrayList<String> orderItems = new ArrayList<String>();
+        orderItems.add("Sweet corn soup");
+        //Act
+        int valueOfOrder = restaurant.calculateOrderValue(orderItems);
+        //Assert
+        assertEquals(119, valueOfOrder);
+    }
+
+    @Test
+    public void calculate_order_value_when_multiple_items_are_present_in_order() {
+        //Arrange
+        ArrayList<String> orderItems = new ArrayList<String>();
+        orderItems.add("Tomato soup");
+        orderItems.add("Vegetable lasagne");
+        //Act
+        int valueOfOrder = restaurant.calculateOrderValue(orderItems);
+        //Assert
+        assertEquals(419, valueOfOrder);
+    }
+    //<<<<<<<<<<<<<<<<<<<<<<<ORDER>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }
